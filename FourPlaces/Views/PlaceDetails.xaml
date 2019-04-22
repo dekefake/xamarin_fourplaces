@@ -14,9 +14,7 @@
                 Orientation="Vertical"
                 InputTransparent="true">
     
-
         <StackLayout>
-            
                     <Image Source="{Binding BindedPlace.ImgUrl}"
                            HorizontalOptions="FillAndExpand"
                            Aspect="AspectFit" >
@@ -87,8 +85,6 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView> 
-            
             </StackLayout>
-        
-        </ScrollView>
+        </ScrollView>   
 </mvvm:BaseContentPage>

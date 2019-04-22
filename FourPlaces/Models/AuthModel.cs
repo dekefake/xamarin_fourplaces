@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using FourPlaces.Utils;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace FourPlaces.Models
 {
@@ -14,11 +15,17 @@ namespace FourPlaces.Models
         public User User { get; internal set; }
         public String access_token { get; internal set; }
         public String refresh_token { get; internal set; }
+        public String tokenType { get; internal set; }
         public int tokenvalidity { get; internal set; }
         public DateTime dateToken { get; internal set; } 
 
         public async Task<bool> Register(string email, string fn, string ln, string mdp)
         {
+            if (email == null || email == "" || fn == null || fn == "" || ln == null || ln == "" || mdp == null || mdp == "")
+            {
+                return false;
+            }
+
             User u = new User(email, fn, ln, mdp);
             string r;
 
@@ -35,21 +42,20 @@ namespace FourPlaces.Models
 
             if (RegRes == null || !RegRes.is_success)
             {
-                return true;
+                return false;
             }
 
-            await Login(email, mdp);
+            return await Login(email, mdp);
 
-            // We do not keep passwords ;p
-            u.password = null;
-
-            User = u;
-            
-            return true;
         }
 
         public async Task<bool> Login(string email, string mdp)
         {
+            if (email == null || email == "" ||  mdp == null || mdp == "")
+            {
+                return false;
+            }
+
             string r;
             try
             {
@@ -65,15 +71,21 @@ namespace FourPlaces.Models
             {
                 return false;
             }
-            
+
             dateToken = DateTime.UtcNow;
             access_token = RegRes.data.access_token;
             refresh_token = RegRes.data.refresh_token;
             tokenvalidity = RegRes.data.expires_in;
+            tokenType = RegRes.data.token_type;
 
+            return await SetMe();
+        }
+
+        public async Task<bool> SetMe()
+        {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue(RegRes.data.token_type, RegRes.data.access_token);
+                new System.Net.Http.Headers.AuthenticationHeaderValue(tokenType, access_token);
             var response = await client.GetAsync(Constantes.API + "/me");
             if (response.IsSuccessStatusCode)
             {
@@ -85,7 +97,6 @@ namespace FourPlaces.Models
             {
                 return false;
             }
-
             return true;
         }
 
@@ -112,6 +123,7 @@ namespace FourPlaces.Models
             access_token = RegRes.data.access_token;
             refresh_token = RegRes.data.refresh_token;
             tokenvalidity = RegRes.data.expires_in;
+            tokenType = RegRes.data.token_type;
 
             return true;
         }

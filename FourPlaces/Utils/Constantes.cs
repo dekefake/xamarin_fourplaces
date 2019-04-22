@@ -13,6 +13,6 @@ namespace FourPlaces.Utils
         public const string LienAPIAuth = API + "/auth/";
 
         public static AuthModel authModel;
-        //public static List<Place> Places;
+        public static List<Place> Places;
     }
 }

@@ -7,84 +7,87 @@
              xmlns:models="clr-namespace:FourPlaces.Models"
              x:Class="FourPlaces.Views.MainPage"
              x:DataType="vm:MainPageViewModel">
-    
-    <StackLayout HorizontalOptions="FillAndExpand"
-                 VerticalOptions="Start">
-                 <Label Text="Lieux" 
-                        TextColor="Black"
-                        FontSize="16"
-                        HorizontalOptions="Center"
-                        Margin="4,6,4,6"
-                        />
-    </StackLayout>
-    
-    <ListView
-        x:Name="ListeLieux"
-        HasUnevenRows="True"
-        SelectionMode="Single"
-        ItemTapped="Handle_ItemTapped">
+             
+   <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Start">
+                     <Label Text="Lieux" 
+                            TextColor="Black"
+                            FontSize="16"
+                            HorizontalOptions="Center"
+                            Margin="4,6,4,6"
+                            />
+        </StackLayout>
         
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:Place">
-                    <ViewCell>
-                        <Frame CornerRadius="4"
-                               HasShadow="True"
-                               Margin="4,4,4,4"
-                               Padding="8,4,8,4"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="Start">
-                            <StackLayout HorizontalOptions="FillAndExpand"
-                                         VerticalOptions="Start"
-                                         Orientation="Horizontal">
-                                
-                                <StackLayout Orientation="Horizontal"
-                                             Grid.Column="0"
-                                             HorizontalOptions="FillAndExpand"
-                                             >
-                                    <Image Source="{Binding ImgUrl}"
-                                           HeightRequest="48"
-                                           WidthRequest="48"
-                                           AnchorX="0"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           />
-                                    <StackLayout Orientation="Vertical"
-                                             Grid.Column="0"
-                                             HorizontalOptions="Center"
-                                             VerticalOptions="Center"
-                                             Margin="16,0,8,0"
-                                             >
-                                        <Label Text="{Binding title}" 
-                                               TextColor="Black" 
-                                               LineBreakMode="WordWrap" 
-                                               FontSize="14"
-                                               />
-                                        <Label Text="{Binding description}"
-                                               FontSize="10"
-                                               TextColor="Black"
-                                               MaxLines="4"
-                                               />
-                                    </StackLayout>
-                                
-                                
+        <ListView
+            IsPullToRefreshEnabled="true"
+            RefreshAllowed="true"
+            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+            x:Name="ListeLieux"
+            HasUnevenRows="True"
+            SelectionMode="Single"
+            ItemTapped="Handle_ItemTapped">
+            
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Place">
+                        <ViewCell>
+                            <Frame CornerRadius="4"
+                                   HasShadow="True"
+                                   Margin="4,4,4,4"
+                                   Padding="8,4,8,4"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="Start">
+                                <StackLayout HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Start"
+                                             Orientation="Horizontal">
+                                    
                                     <StackLayout Orientation="Horizontal"
                                                  Grid.Column="0"
-                                                 HorizontalOptions="EndAndExpand"
-                                                 VerticalOptions="Center"
-                                                 MinimumWidthRequest="64"
+                                                 HorizontalOptions="FillAndExpand"
                                                  >
-                                    
-                                        <Label Text="{Binding distanceStr}"
-                                               FontSize="10"
-                                               TextColor="Gray"
+                                        <Image Source="{Binding ImgUrl}"
+                                               HeightRequest="48"
+                                               WidthRequest="48"
+                                               AnchorX="0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
                                                />
+                                        <StackLayout Orientation="Vertical"
+                                                 Grid.Column="0"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 Margin="16,0,8,0"
+                                                 >
+                                            <Label Text="{Binding title}" 
+                                                   TextColor="Black" 
+                                                   LineBreakMode="WordWrap" 
+                                                   FontSize="14"
+                                                   />
+                                            <Label Text="{Binding description}"
+                                                   FontSize="10"
+                                                   TextColor="Black"
+                                                   MaxLines="4"
+                                                   />
+                                        </StackLayout>
                                     
+                                    
+                                        <StackLayout Orientation="Horizontal"
+                                                     Grid.Column="0"
+                                                     HorizontalOptions="EndAndExpand"
+                                                     VerticalOptions="Center"
+                                                     MinimumWidthRequest="64"
+                                                     >
+                                        
+                                            <Label Text="{Binding distanceStr}"
+                                                   FontSize="10"
+                                                   TextColor="Gray"
+                                                   />
+                                        
+                                        </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                        </Frame>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 </mvvm:BaseContentPage>

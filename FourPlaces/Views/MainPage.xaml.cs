@@ -19,13 +19,16 @@ namespace FourPlaces.Views
             
             Title = "Places";
 
-            //ListeLieux.ItemsSource = new List<Place>();
-            //BindingContext = null;
-            //Task.Run(InitBinding);
             BindingContext = new MainPageViewModel();
-            ListeLieux.ItemsSource = ((MainPageViewModel)base.BindingContext).Places;
+            ListeLieux.ItemsSource = Constantes.Places;
+
+            ListeLieux.RefreshCommand = new Command(() => {
+                Constantes.Places = MainPageModel.GetPlaces();
+                ListeLieux.EndRefresh();
+            });
 
             Constantes.authModel?.AutoRefreshToken();
+
         }
 
         void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
@@ -36,15 +39,6 @@ namespace FourPlaces.Views
 
                 Navigation.PushAsync(new PlaceDetails(p.id));
             }
-        }
-
-        async Task<bool> InitBinding()
-        {
-            base.BindingContext = new MainPageViewModel();
-
-            ListeLieux.ItemsSource = ((MainPageViewModel)base.BindingContext).Places;
-            return true;
-            
         }
     }
 }

@@ -31,7 +31,7 @@ namespace FourPlaces.Views
         {
             bool reg = await Constantes.authModel.Register(email.Text, firstname.Text, lastname.Text, pass.Text);
 
-            string good = "welcome, "+ Constantes.authModel.User.first_name+".";
+            string good = "welcome, "+ Constantes.authModel?.User?.first_name+".";
             string bad = "Sorry, for some reason, your registration failed";
             DependencyService.Get<IMessage>().ShortAlert(reg?good:bad);
         }
@@ -41,7 +41,7 @@ namespace FourPlaces.Views
             bool tokenRefreshed = await Constantes.authModel.RefreshToken();
 
             string good = "Token refreshed";
-            string bad = "Sorry, for some reason, the token has failed to refresh itself. Please login again";
+            string bad = "Sorry, for some reason, the token has failed to refresh itself. Please try again";
 
             if (!tokenRefreshed)
             {
@@ -58,10 +58,10 @@ namespace FourPlaces.Views
         {
             bool login_success = await Constantes.authModel.Login(login_MailEntry.Text, login_passwordEntry.Text);
 
-            string good = "welcome, " + Constantes.authModel.User.first_name + ".";
+            string good = "welcome, " + Constantes.authModel?.User?.first_name + ".";
             string bad = "Bad credentials. Please try again.";
 
-            IsRegisterPage(Constantes.authModel.User != null && Constantes.authModel.access_token != null);
+            IsRegisterPage(Constantes.authModel?.User != null && Constantes.authModel?.access_token != null);
 
             DependencyService.Get<IMessage>().ShortAlert(login_success ? good : bad);
         }
