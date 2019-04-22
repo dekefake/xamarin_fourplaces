@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.293080" />
+    <PackageReference Include="Storm.Mvvm.Forms" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.2.0" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Models\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\MasterPage.cs" />
+    <Compile Remove="Views\MasterDetailPage.xaml.cs" />
+    <Compile Remove="Views\MasterDetailPageDetail.xaml.cs" />
+    <Compile Remove="Views\MasterDetailPageMaster.xaml.cs" />
+    <Compile Remove="Views\MasterDetailPageMenuItem.cs" />
+    <Compile Remove="Views\MyMasterDetailPageDetail.xaml.cs" />
+    <Compile Remove="App.xaml.cs" />
+    <Compile Remove="App.xaml.cs" />
+    <Compile Remove="Views\MyPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\MasterDetailPage.xaml" />
+    <EmbeddedResource Remove="Views\MasterDetailPageDetail.xaml" />
+    <EmbeddedResource Remove="Views\MasterDetailPageMaster.xaml" />
+    <EmbeddedResource Remove="Views\MyMasterDetailPageDetail.xaml" />
+    <EmbeddedResource Remove="App.xaml" />
+    <EmbeddedResource Remove="Views\MyPage.xaml" />
+  </ItemGroup>
+</Project>
