@@ -41,6 +41,26 @@
                           VerticalOptions="FillAndExpand"
                           Margin="4,40,4,0" />
             
+                    <Label Text="Ajouter un commentaire"
+                           FontSize="12"
+                           Margin="4,8,4,0"/>
+                    <StackLayout Orientation="Horizontal"
+                                 Grid.Column="0"
+                                 HorizontalOptions="FillAndExpand">
+                                   
+                                 <Entry IsPassword="false" 
+                                        x:Name="comment"
+                                        Keyboard="Chat"
+                                        HorizontalOptions="FillAndExpand"/>
+                
+                                 <Button x:Name="postCommentButton"
+                                         Text="Post"
+                                         HorizontalOptions="End"
+                                         Clicked="PostCommentClick"
+                                         />
+                    
+                    </StackLayout>
+            
                    <ListView
                         x:Name="ListComments"
                         HasUnevenRows="True"

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using FourPlaces.Utils;
 using Newtonsoft.Json;
 
@@ -66,5 +69,24 @@ namespace FourPlaces.Models
                 return Answer.data;
             }
         }
+
+        public static async Task<bool> PostComment(String comment, int PlaceID)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.authModel.tokenType, Constantes.authModel.access_token);
+
+            var content = new StringContent("{\"text\": \""+comment+"\"}", Encoding.UTF8, "application/json");
+            var result = client.PostAsync(Constantes.API + "/places/" + PlaceID + "/comments", content).Result;
+            return result.IsSuccessStatusCode;
+        }
     }
+
+    public class PostCommentAnswer
+    {
+        public bool is_success { get; set; }
+        public string error_code { get; set; }
+        public string error_message { get; set; }
+    }
+
 }

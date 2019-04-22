@@ -28,7 +28,6 @@ namespace FourPlaces.Views
             });
 
             Constantes.authModel?.AutoRefreshToken();
-
         }
 
         void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)

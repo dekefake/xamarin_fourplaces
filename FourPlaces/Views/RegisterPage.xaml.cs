@@ -68,7 +68,7 @@ namespace FourPlaces.Views
 
         async void DisconnectClick(object sender, EventArgs args)
         {
-            Constantes.authModel = new AuthModel();
+            AuthModel.Disconnect();
             DependencyService.Get<IMessage>().ShortAlert("Disconnected");
             IsRegisterPage(false);
 

@@ -17,7 +17,8 @@ namespace FourPlaces.Models
         public String refresh_token { get; internal set; }
         public String tokenType { get; internal set; }
         public int tokenvalidity { get; internal set; }
-        public DateTime dateToken { get; internal set; } 
+        public DateTime dateToken { get; internal set; }
+        public bool Connected { get; internal set; } = false;
 
         public async Task<bool> Register(string email, string fn, string ln, string mdp)
         {
@@ -92,6 +93,7 @@ namespace FourPlaces.Models
                 var content = await response.Content.ReadAsStringAsync();
                 Author author = JsonConvert.DeserializeObject<AuthorAnswer>(content).data;
                 Constantes.authModel.User = author;
+                Connected = true;
             }
             else
             {
@@ -126,6 +128,11 @@ namespace FourPlaces.Models
             tokenType = RegRes.data.token_type;
 
             return true;
+        }
+
+        public static void Disconnect()
+        {
+            Constantes.authModel = new AuthModel();
         }
 
         public async Task<bool> AutoRefreshToken()
